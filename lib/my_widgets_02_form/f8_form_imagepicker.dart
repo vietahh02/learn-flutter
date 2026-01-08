@@ -230,7 +230,6 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                                     );
                                   },
                                 );
-                                
                                 if (source != null) {
                                   final XFile? image = await _imagePicker.pickImage(source: source);
                                   if (image != null) {
