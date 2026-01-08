@@ -73,7 +73,6 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                   const SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
-                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';
