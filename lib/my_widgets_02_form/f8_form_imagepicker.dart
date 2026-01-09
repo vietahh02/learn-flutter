@@ -42,7 +42,16 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                 children: [
                   const SizedBox(height: 20),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      prefixText: 'Name: ',
+                      prefixIcon: Icon(Icons.person, color: Colors.blue),
+                      errorText: 'Name is required',
+                      errorStyle: TextStyle(color: Colors.red, fontSize: 20),
+                      filled: true,
+                      fillColor: Colors.greenAccent,
+                      ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Name is required';
@@ -57,7 +66,15 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                      prefixIcon: Icon(Icons.email, color: Colors.blue),
+                      counter: Text('@example.com'),
+                      constraints: BoxConstraints(maxWidth: 300),
+                      counterStyle: TextStyle(color: Colors.blue, backgroundColor: Colors.red),
+                      helperText: 'Enter your email',
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Email is required';
@@ -72,8 +89,24 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
-                    obscureText: true,
+                    cursorColor: Colors.red,
+                    cursorWidth: 10,
+                    cursorRadius: Radius.circular(10),
+                    cursorOpacityAnimates: true,
+                    cursorHeight: 70,
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 30, 
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.yellow,
+                      decoration: TextDecoration.combine([TextDecoration.underline, TextDecoration.overline, TextDecoration.lineThrough]),
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(borderRadius: BorderRadius.horizontal(left: Radius.circular(25), right: Radius.circular(25))),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    obscureText: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';
@@ -88,6 +121,13 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                   ),
                   const SizedBox(height: 20),
                   DropdownButtonFormField(
+                    hint: Text('Select Country'),
+                    style: TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
+                    dropdownColor: Colors.yellow,
+                    icon: Icon(Icons.microwave_outlined, color: Colors.blue),
+                    iconSize: 15,
+                    iconEnabledColor: Colors.red,
+                    iconDisabledColor: Colors.grey,
                     decoration: InputDecoration(labelText: 'Country', border: OutlineInputBorder()),
                     items: countries.map((country) => DropdownMenuItem(value: country, child: Text(country))).toList(),
                     onChanged: (value) {
@@ -107,7 +147,7 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                     initialValue: selectedGender,
                     builder: (FormFieldState<String> field) {
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           RadioGroup<String>(
                             groupValue: selectedGender,
@@ -121,6 +161,10 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                               children: [
                                 Expanded(
                                   child: RadioListTile<String>(
+                                    tileColor: Colors.yellow,
+                                    fillColor: WidgetStateProperty.all(Colors.red),
+                                    activeColor: Colors.blue,
+                                    selected: selectedGender == 'Male',
                                     title: Text('Male'),
                                     value: 'Male',
                                   ),
@@ -163,6 +207,12 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
                         lastDate: DateTime.now(),
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 0, 0))),
+                            child: child!,
+                          );
+                        },
                       );
                       if (pickedDate != null) {
                         String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
@@ -170,13 +220,6 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                           _dateOfBirthController.text = formattedDate;
                         });
                       }
-                      // showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime.now()).then((value) {
-                      //   if (value != null) {
-                      //     setState(() {
-                      //       _dateOfBirthController.text = value.toString();
-                      //     });
-                      //   }
-                      // });
                     },
                   ),
                   const SizedBox(height: 20),
@@ -289,7 +332,11 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                       }
                     }, child: Text('Submit'))),
                     const SizedBox(width: 20),
-                    Expanded(child: ElevatedButton(onPressed: (){}, child: Text('Reset'))),
+                    Expanded(child: ElevatedButton(onPressed: (){
+                      setState(() {
+                        _formKey.currentState!.reset();
+                      });
+                    }, child: Text('Reset'))),
                   ],
                 ),
               ]
