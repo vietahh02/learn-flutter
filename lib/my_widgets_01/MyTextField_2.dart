@@ -14,7 +14,7 @@ class _MyTextField_2State extends State<MyTextField_2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar.new(
+      appBar: AppBar(
         title: Text('My Scaffold'),
         backgroundColor: Colors.blueGrey,
         leading: Icon(Icons.menu),

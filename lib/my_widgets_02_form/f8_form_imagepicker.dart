@@ -223,15 +223,35 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  CheckboxListTile(
-                    title: Text('Accept terms and conditions'),
-                    value: acceptedTerms,
-                    onChanged: (value) {
-                      setState(() {
-                        acceptedTerms = value ?? false;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.pink[100]!, width: 5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.5),
+                          blurRadius: 10,
+                          offset: Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: CheckboxListTile(
+                      title: Text('Accept terms and conditions'),
+                      value: acceptedTerms,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      activeColor: Colors.green,
+                      checkColor: Colors.red,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          acceptedTerms = value ?? false;
+                        });
+                      },
+                    ),
                   ),
                   const SizedBox(height: 20),
                   FormField<File>(
@@ -241,23 +261,20 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                       }
                       return null;
                     },
-                    initialValue: _imageFile,
                     builder: (FormFieldState<File> field) {
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Image', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 10),
                           Center(
                             child: GestureDetector(
                               onTap: () async {
-                                final ImageSource? source = await showDialog<ImageSource>(
+                                final ImageSource? pickedImage = await showDialog<ImageSource>(
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
                                       title: Text('Select Image'),
                                       content: Column(
-                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           ListTile(
                                             leading: Icon(Icons.camera_alt),
@@ -272,10 +289,10 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                                         ],
                                       ),
                                     );
-                                  },
+                                  }
                                 );
-                                if (source != null) {
-                                  final XFile? image = await _imagePicker.pickImage(source: source);
+                                if (pickedImage != null) {
+                                  final XFile? image = await _imagePicker.pickImage(source: pickedImage);
                                   if (image != null) {
                                     setState(() {
                                       _imageFile = File(image.path);
@@ -322,6 +339,7 @@ class _FormDropdownDemoState extends State<FormDropdownDemo> {
                       );
                     },
                   ),
+                  const SizedBox(height: 20),
                   Row(
                   children: [
                     Expanded(child: ElevatedButton(onPressed: (){

@@ -6,7 +6,7 @@ class MyButton_3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar.new(
+      appBar: AppBar(
         title: Text('My Scaffold'),
         backgroundColor: Colors.blueGrey,
         leading: Icon(Icons.menu),
@@ -14,6 +14,7 @@ class MyButton_3 extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
+            color: Colors.white,
             onPressed: () {print('Search pressed');},
           ),
           IconButton(
@@ -30,7 +31,6 @@ class MyButton_3 extends StatelessWidget {
             const SizedBox(height: 20), //tao khoang cach giua cac widget
             ElevatedButton(
               onPressed: (){},
-              child: const Text("click me"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
@@ -40,6 +40,7 @@ class MyButton_3 extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 elevation: 5,
               ),
+              child: const Text("click me"),
             ),
             const SizedBox(height: 20),
             InkWell(
@@ -83,10 +84,12 @@ class MyButton_3 extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
+          activeIcon: Icon(Icons.home_outlined),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
+          activeIcon: Icon(Icons.settings_outlined),
           label: 'Settings',
         ),
       ]),

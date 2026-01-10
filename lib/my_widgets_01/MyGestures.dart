@@ -6,7 +6,7 @@ class MyGestures extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar.new(
+      appBar: AppBar(
         title: Text('My Scaffold'),
         backgroundColor: Colors.blueGrey,
         leading: Icon(Icons.menu),
