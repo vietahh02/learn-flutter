@@ -66,10 +66,13 @@ class UserDatabaseHelper {
     return List.generate(maps.length, (i) => User.fromMap(maps[i]));
   }
 
-  Future<User> getUser(int id) async {
+  Future<User?> getUser(int id) async {
     final db = await instance.database;
     final List<Map<String, dynamic>> maps = await db.query('users', where: 'id = ?', whereArgs: [id]);
-    return User.fromMap(maps.first);
+    if (maps.isNotEmpty) {
+      return User.fromMap(maps.first);
+    }
+    return null;
   }
 
   Future<int> insertUser(User user) async {
@@ -85,5 +88,12 @@ class UserDatabaseHelper {
   Future<int> deleteUser(int id) async {
     final db = await instance.database;
     return await db.delete('users', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> countUsers() async {
+    final db = await instance.database;
+    final result = await db.rawQuery('SELECT COUNT(*) FROM users');
+    // return result.first['COUNT(*)'] as int;
+    return Sqflite.firstIntValue(result) ?? 0;
   }
 }
