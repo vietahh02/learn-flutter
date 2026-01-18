@@ -1,0 +1,2 @@
+Expanded: Để cho những phần bên trong nó cso thể chiếm không gian còn lại và không bị đẩy ra ngoài
+SingleChildScrollView + scrollDirection: Axis.horizontal: để có thể scroll ngang nhưng phần bị tràn không hiển thị được

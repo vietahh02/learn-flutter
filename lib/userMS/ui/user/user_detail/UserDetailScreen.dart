@@ -1,4 +1,4 @@
-import 'package:app_new/userMS/model/User.dart';
+import 'package:app_new/userMS/db/model/User.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailScreen extends StatelessWidget {
@@ -12,6 +12,7 @@ class UserDetailScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -22,6 +23,7 @@ class UserDetailScreen extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 10),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(16),
@@ -29,9 +31,9 @@ class UserDetailScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(color: Colors.grey.shade200, blurRadius: 10, offset: Offset(0, 10)),
-              ],
+              // boxShadow: [
+              //   BoxShadow(color: Colors.grey.shade200, blurRadius: 10, offset: Offset(0, 10)),
+              // ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

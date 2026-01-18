@@ -1,11 +1,12 @@
-import 'package:app_new/userMS/db/UserDatabaseHelper.dart';
-import 'package:app_new/userMS/model/User.dart';
+import 'package:app_new/userMS/db/repository/UserDatabaseHelper.dart';
+import 'package:app_new/userMS/db/model/User.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class UserCreateUpdateScreen extends StatefulWidget {
   final User? user;
-  const UserCreateUpdateScreen({super.key, this.user});
+  final Function() refreshUsers;
+  const UserCreateUpdateScreen({super.key, this.user, required this.refreshUsers});
 
   @override
   State<UserCreateUpdateScreen> createState() => _UserCreateUpdateScreenState();
@@ -25,7 +26,9 @@ class _UserCreateUpdateScreenState extends State<UserCreateUpdateScreen> {
     _emailController = TextEditingController(text: widget.user?.email ?? '');
     _phoneController = TextEditingController(text: widget.user?.phone ?? '');
     _dateOfBirthController = TextEditingController(
-      text: widget.user?.dateOfBirth.toString() ?? ''
+      text: widget.user?.dateOfBirth != null 
+        ? DateFormat('dd/MM/yyyy').format(widget.user!.dateOfBirth)
+        : ''
     );
   }
 
@@ -50,7 +53,7 @@ class _UserCreateUpdateScreenState extends State<UserCreateUpdateScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 10, offset: Offset(0, 10))],
+            // boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 10, offset: Offset(0, 10))],
           ),
           child: Form(
             key: _formKey,
@@ -159,16 +162,23 @@ class _UserCreateUpdateScreenState extends State<UserCreateUpdateScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       print('Form is valid');
+                      DateTime dateOfBirth = DateFormat('dd/MM/yyyy').parse(_dateOfBirthController.text);
                       User user = User(
+                        id: widget.user?.id,
                         name: _nameController.text,
                         email: _emailController.text,
                         phone: _phoneController.text,
-                        dateOfBirth: DateTime.parse(_dateOfBirthController.text),
+                        dateOfBirth: dateOfBirth,
                       );
-                      UserDatabaseHelper.instance.insertUser(user).then((value) {
+                      Future<int> operation = widget.user != null
+                        ? UserDatabaseHelper.instance.updateUser(user)
+                        : UserDatabaseHelper.instance.insertUser(user);
+                      
+                      operation.then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('User ${widget.user != null ? 'updated' : 'created'} successfully'), backgroundColor: Colors.green),
                         );
+                        widget.refreshUsers();
                         Navigator.pop(context);
                       }).catchError((error) {
                         ScaffoldMessenger.of(context).showSnackBar(

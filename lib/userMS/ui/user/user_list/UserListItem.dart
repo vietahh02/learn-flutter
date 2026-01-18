@@ -1,4 +1,4 @@
-import 'package:app_new/userMS/model/User.dart';
+import 'package:app_new/userMS/db/model/User.dart';
 import 'package:flutter/material.dart';
 
 class UserListItem extends StatelessWidget {
@@ -22,22 +22,32 @@ class UserListItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.blue.shade100,
-                    child: Text(user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue.shade800),),
-                  ),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(user.name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.shade800, overflow: TextOverflow.ellipsis,),),
-                      Text(user.email, style: TextStyle(fontSize: 14, color: Colors.grey.shade600, overflow: TextOverflow.ellipsis,),),
-                    ], 
-                  ),
-                ]
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.blue.shade100,
+                      child: Text(user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue.shade800),),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(user.name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.shade800),),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(user.email, style: TextStyle(fontSize: 14, color: Colors.grey.shade600),),
+                          ),
+                        ], 
+                      ),
+                    ),
+                  ]
+                ),
               ),
               Row(
                 children: [
