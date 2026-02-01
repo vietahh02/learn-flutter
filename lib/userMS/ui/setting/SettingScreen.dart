@@ -1,3 +1,4 @@
+import 'package:app_new/userMS/ui/user/user_list/MenuScreen.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -6,6 +7,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MenuScreen(),
       appBar: AppBar(
         title: Text('Settings'),
         backgroundColor: Colors.grey[700],

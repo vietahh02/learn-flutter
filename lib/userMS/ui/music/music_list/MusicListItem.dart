@@ -1,9 +1,11 @@
 import 'package:app_new/userMS/db/model/Music.dart';
+import 'package:app_new/userMS/ui/music/music_play/MusicPlayScreen.dart';
 import 'package:flutter/material.dart';
 
 class MusicListItem extends StatelessWidget {
   final Music music;
-  const MusicListItem({super.key, required this.music});
+  final List<Music> playlist;
+  const MusicListItem({super.key, required this.music, required this.playlist});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,9 @@ class MusicListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MusicPlayScreen(music: music, playlist: playlist)));
+        },
         contentPadding: EdgeInsets.only(left: 16, right: 0),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -22,13 +27,12 @@ class MusicListItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.play_arrow),
               onPressed: () {
-                print('Play pressed');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MusicPlayScreen(music: music, playlist: playlist)));
               },
             ),
             IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () {
-                print('More pressed');
                 showDialog(context: context, builder: (context) => AlertDialog(
                   title: Text('More'),
                   content: Text('Are you sure you want to more this music?'),

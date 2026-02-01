@@ -1,3 +1,4 @@
+import 'package:app_new/userMS/ui/home/HomeScreen.dart';
 import 'package:app_new/userMS/ui/user/user_list/UserListScreen.dart';
 import 'package:app_new/userMS/ui/setting/SettingScreen.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class MenuScreen extends StatelessWidget {
               Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => UserListScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),

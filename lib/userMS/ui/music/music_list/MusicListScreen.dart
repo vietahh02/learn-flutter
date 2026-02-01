@@ -1,6 +1,7 @@
 import 'package:app_new/userMS/db/model/Music.dart';
 import 'package:app_new/userMS/db/repository/MusicDatabaseHelper.dart';
 import 'package:app_new/userMS/ui/music/music_list/MusicListItem.dart';
+import 'package:app_new/userMS/ui/user/user_list/MenuScreen.dart';
 import 'package:flutter/material.dart';
 
 class MusicListScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: MenuScreen(),
         appBar: AppBar(
           title: Text('Music List')
         ),
@@ -50,7 +52,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
     return ListView.builder(
       itemCount: musics.length,
       itemBuilder: (context, index) {
-        return MusicListItem(music: musics[index]);
+        return MusicListItem(music: musics[index], playlist: musics);
       },
     );
   }
